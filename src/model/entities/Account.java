@@ -1,5 +1,7 @@
 package model.entities;
 
+import model.exceptions.DomainException;
+
 public class Account {
 
 	private Integer number;
@@ -49,7 +51,13 @@ public class Account {
 	public void deposit(double amount) {
 		balance += amount;
 	}
-	public void withDraw(double amount) {
+	public void withDraw(double amount) throws DomainException {
+		if (balance == 0) {
+			throw new DomainException("Insuficient Balance");
+			}
+		if (amount > withdrawLimit) {
+			throw new DomainException("You don't have limit to do this withdraw");
+		}		
 		balance -= amount;
 	}
 
